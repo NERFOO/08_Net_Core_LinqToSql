@@ -30,7 +30,7 @@ namespace _08_Net_Core_LinqToSql.Controllers
             }
             else
             {
-                ViewData["MENSAJEFECHA"] = "";
+                ViewData["MENSAJEFECHA"] = "algo mal";
                 return View();
             }
         }
