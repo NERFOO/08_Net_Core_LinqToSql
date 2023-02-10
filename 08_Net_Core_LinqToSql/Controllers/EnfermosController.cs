@@ -22,7 +22,7 @@ namespace _08_Net_Core_LinqToSql.Controllers
         [HttpPost]
         public IActionResult Index(DateTime fechNacimiento)
         {
-            List<Enfermo> enfermos = this.repo.BuscadorFechaNacimiento(fechNacimiento);
+            List<Enfermo> enfermos = this.repo.FindFechaNacimiento(fechNacimiento);
 
             if(enfermos != null)
             {
@@ -30,7 +30,7 @@ namespace _08_Net_Core_LinqToSql.Controllers
             }
             else
             {
-                ViewData["MENSAJEFECHA"] = "algo mal";
+                ViewData["MENSAJEFECHA"] = "No hay enfermos en la fecha: " + fechNacimiento;
                 return View();
             }
         }

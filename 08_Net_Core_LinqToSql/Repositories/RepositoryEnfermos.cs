@@ -15,12 +15,14 @@ namespace _08_Net_Core_LinqToSql.Repositories
         {
             string connectionString = @"Data Source=LOCALHOST\DESARROLLO;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
 
+            string connectionStringCasa = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
+
             string consulta = "SELECT * FROM ENFERMO";
-            SqlDataAdapter adapter = new SqlDataAdapter(consulta, connectionString);
+            SqlDataAdapter adapter = new SqlDataAdapter(consulta, connectionStringCasa);
             this.tablaEnfermos = new DataTable();
             adapter.Fill(tablaEnfermos);
 
-            this.connection = new SqlConnection(connectionString);
+            this.connection = new SqlConnection(connectionStringCasa);
             this.command = new SqlCommand();
             this.command.Connection = this.connection;
         }
@@ -65,9 +67,28 @@ namespace _08_Net_Core_LinqToSql.Repositories
             this.command.Parameters.Clear();
         }
 
-        public List<Enfermo> BuscadorFechaNacimiento(DateTime fechNacimiento)
+        public List<Enfermo> FindFechaNacimiento(DateTime fechNacimiento)
         {
+            var consulta = from datos in this.tablaEnfermos.AsEnumerable()
+                              where datos.Field<DateTime>("FECHA_NAC") >= fechNacimiento
+                           select datos;
 
+            List<Enfermo> enfermos = new List<Enfermo>();
+
+            foreach (var row in consulta)
+            {
+                Enfermo enfermo = new Enfermo
+                {
+                    Inscripcion = row.Field<string>("INSCRIPCION"),
+                    Apellido = row.Field<string>("APELLIDO"),
+                    Direccion = row.Field<string>("DIRECCION"),
+                    FechNacimiento = row.Field<DateTime>("FECHA_NAC"),
+                    Sexo = row.Field<string>("S"),
+                    NumSS = row.Field<string>("NSS")
+                };
+                enfermos.Add(enfermo);
+            }
+            return enfermos;
         }
     }
 }
