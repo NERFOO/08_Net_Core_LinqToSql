@@ -28,6 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Enfermos" asp-action="Index">Enfermos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Empleados" asp-action="DatosEmpleados">Datos empleados</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -48,5 +51,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("scriptFecha", false)
 </body>
 </html>

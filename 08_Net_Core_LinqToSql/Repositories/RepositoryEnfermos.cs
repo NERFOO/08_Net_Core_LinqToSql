@@ -18,11 +18,11 @@ namespace _08_Net_Core_LinqToSql.Repositories
             string connectionStringCasa = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=sa;Password=MCSD2022";
 
             string consulta = "SELECT * FROM ENFERMO";
-            SqlDataAdapter adapter = new SqlDataAdapter(consulta, connectionStringCasa);
+            SqlDataAdapter adapter = new SqlDataAdapter(consulta, connectionString);
             this.tablaEnfermos = new DataTable();
             adapter.Fill(tablaEnfermos);
 
-            this.connection = new SqlConnection(connectionStringCasa);
+            this.connection = new SqlConnection(connectionString);
             this.command = new SqlCommand();
             this.command.Connection = this.connection;
         }

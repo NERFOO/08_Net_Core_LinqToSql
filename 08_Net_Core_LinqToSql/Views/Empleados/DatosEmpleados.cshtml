@@ -1,0 +1,53 @@
+﻿@model ResumenEmpleados
+
+@{
+    List<string> oficios = ViewData["OFICIOS"] as List<string>;
+}
+
+<h1>Resumen empleados</h1>
+
+<form method="post">
+    <label>Seleccione un oficio</label>
+    <select name="oficio" class="form-control">
+        @foreach(string oficio in oficios)
+        {
+            <option value="@oficio">@oficio</option>
+        }
+    </select>
+
+    <button type="submit" class="btn btn-outline-dark">Mostrar empleados</button>
+</form>
+
+@if(Model != null) {
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-info">
+            Personas: @Model.Personas
+        </li>
+        <li class="list-group-item list-group-item-info">
+                Maximo: @Model.MaximoSalario
+        </li>
+        <li class="list-group-item list-group-item-info">
+            Media: @Model.MediaSalarial
+        </li>
+    </ul>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Empleado empleado in Model.Empleados)
+            {
+                <tr>
+                    <td>@empleado.Apellido</td>
+                    <td>@empleado.Oficio</td>
+                    <td>@empleado.Salario</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

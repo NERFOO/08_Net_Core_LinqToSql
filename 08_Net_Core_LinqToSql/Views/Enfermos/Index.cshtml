@@ -1,10 +1,20 @@
 ﻿@model List<Enfermo>
 
+@{
+    string date = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+@section scriptFecha{
+    <script>
+        document.getElementById("fechNacimiento").defaultValue = "@date";
+    </script>
+}
+
 <h1>Vista de enfermos</h1>
 
 <form method="post">
     <label>Buscar por feha de nacimiento</label>
-    <input type="date" name="fechNacimiento"/>
+    <input type="date" name="fechNacimiento" id="fechNacimiento" />
 
     <button type="submit" class="btn btn-info">Buscar</button>
 </form>
